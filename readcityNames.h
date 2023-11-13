@@ -1,10 +1,10 @@
-std::vector<std::string> readcityNames(const std::string& "map.txt"){
+std::vector<std::string> readCityNames(const std::string& fileName) {
     std::vector<std::string> cityNames;
-    std::ifstream list("map.txt");
+    std::ifstream cities(fileName);
     std::string cityName;
-    while (list >> cityName){
+    while (cities >> cityName) {
         cityNames.push_back(cityName);
     }
-    list.close();
+    cities.close();
     return cityNames;
 }

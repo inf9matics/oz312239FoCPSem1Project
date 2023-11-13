@@ -8,7 +8,7 @@
 #include "geneticAlgorithm.h"
 #include "calculateDistance.h"
 #include "distanceMatrix.h"
-#include "cityNames.h"
+#include "readCityNames.h"
 
 int main(){
     srand(time(0));
@@ -16,9 +16,6 @@ int main(){
     int populationSize = std::rand() % 40 + 10;
     int generations = std::rand() % 1000 + 1;
     int numCities = 0;
-
-    // Reading name of cities from the map
-    std::vector<std::string> cityNames = readcityNames("map.txt");
 
     // Initialization of a "map"
     std::vector<std::vector<int>> distMatrix = distanceMatrix();
@@ -72,10 +69,12 @@ int main(){
         population.insert(population.end(), offspring.begin(), offspring.end());
     }
 
+    // Reading name of cities from the map
+    std::vector<std::string> cityNames = readCityNames("map.txt");
+
     //Display best solution after all generations
-    std::cout<<"Best path = ";
     for (int i = 0; i < numCities; i++) {
-        std::cout << population[0].path[i] << ", ";
+        std::cout << cityNames[population[0].path[i]] << ", ";
     }
 
     std::cout<< std::endl;
