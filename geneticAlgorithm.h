@@ -1,6 +1,6 @@
 // Structure to represent a chromosome (a potential solution)
 struct Chromosome {
-    std::vector<int> path;
+    std::vector<char> path;
     int fitness = 0;
 };
 
@@ -10,7 +10,7 @@ std::vector<Chromosome> initializePopulation(int populationSize, int numCities){
     for(int i = 0; i < populationSize; i++){
         population[i].path.resize(numCities);
         for(int j = 0; j < numCities; j++){
-            population[i].path[j] = j; /// Initializing with path 0, 1, 2 ... numCities - 1
+            population[i].path[j] = 'A' + j; /// Initializing with path 0, 1, 2 ... numCities - 1
         }
         std::random_shuffle(population[i].path.begin() + 1, population[i].path.end()); /// Randomizing order to create diversity in first population
         population[i].fitness = 0; /// Setting fitness to 0, for later calculation

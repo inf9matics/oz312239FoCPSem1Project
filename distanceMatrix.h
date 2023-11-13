@@ -19,20 +19,20 @@ std::vector<std::string> stringToStringVector(std::string str){ // There's propa
 std::vector<std::vector<int>> distanceMatrix(){
     std::ifstream map;
     std::string cities;
-    int numCities = 0;
+    int numCities = 1;
 
-    map.open("map.txt");
+    map.open("map.txt"); // Opening file containing a map of cities
     getline(map,cities);
 
-    for(int i = 0; i < cities.length(); i++){
-        if(cities[i] != ' '){
+    for(int i = 0; i < cities.length(); i++){ // Calculating number of cities in provided map
+        if(cities[i] == ' '){
             numCities++;
         }
     }
     
     std::vector<std::vector<int>> distanceMatrix(numCities, std::vector<int>(numCities, 0));
 
-    for (int i = 0; i < numCities; i++) { // TODO make matrix customizable, and ask about amount of cities
+    for (int i = 0; i < numCities; i++) { // Inputing data from text file to vector
             getline(map,cities);
             for (int j = 0; j < numCities; j++) {
                 if (i != j) {

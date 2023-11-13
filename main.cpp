@@ -8,6 +8,7 @@
 #include "geneticAlgorithm.h"
 #include "calculateDistance.h"
 #include "distanceMatrix.h"
+#include "cityNames.h"
 
 int main(){
     srand(time(0));
@@ -16,14 +17,16 @@ int main(){
     int generations = std::rand() % 1000 + 1;
     int numCities = 0;
 
+    // Reading name of cities from the map
+    std::vector<std::string> cityNames = readcityNames("map.txt");
+
     // Initialization of a "map"
     std::vector<std::vector<int>> distMatrix = distanceMatrix();
-    
-    for(int i = 0; i < ; i++){
-        if(distMatrix[i] != ' '){
-            numCities++;
-        }
+
+    for(int i = 0; i < distMatrix.at(0).size(); i++){
+        numCities++;
     }
+
 
     // Initializing population
     std::vector<Chromosome> population = initializePopulation(populationSize, numCities);
