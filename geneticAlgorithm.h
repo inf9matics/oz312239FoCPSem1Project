@@ -17,5 +17,6 @@ struct Chromosome
 };
 
 int get_random_in_range(int from, int to);
-std::vector<std::string> listAvailableCities(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const std::string& city, const std::vector<std::string>& cityNames, const std::vector<std::string>& path);
+std::vector<std::string> listAvailableCities(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const std::vector<std::string>& cityNames, const std::vector<std::string>& path);
 std::vector<Chromosome> initializePopulation(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const int& populationSize, const int& numCities, const std::vector<std::string>& cityNames);
+Chromosome crossover(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const Chromosome& parent1, const Chromosome& parent2);
