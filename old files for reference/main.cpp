@@ -1,84 +1,109 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cstdlib>
-#include <ctime>
-#include <fstream>
 #include <string>
+#include <map>
+#include <utility>
+#include <vector>
+#include <cmath>
+#include <fstream>
+#include "utils.h"
 #include "geneticAlgorithm.h"
-#include "calculateDistance.h"
-#include "distanceMatrix.h"
-#include "readCityNames.h"
 
-int main(){
-    srand(time(0));
-    
-    int populationSize = std::rand() % 40 + 10;
-    int generations = std::rand() % 1000 + 1;
-    int numCities = 0;
+int main(int argc, char *argv[])
+{
+    // Temporary solution for debugging
+    /*std::string inputFileName = "input.txt"; 
+    std::string outputFileName = "output.txt";
+    int generations = 200;
+    int populationSize = 50;*/
 
-    // Initialization of a "map"
-    std::vector<std::vector<int>> distMatrix = distanceMatrix();
-
-    for(int i = 0; i < distMatrix.at(0).size(); i++){
-        numCities++;
+    // Checks for proper input values
+    if(argc < 9) 
+    {
+        std::cerr << "Proper use of the program:\n"
+                  << "project.exe -i <input file name> -o <output file name> -g <number of generations> -n <number of individuals in a generation(at least 100)>\n";
+        return 1;
     }
 
+    std::string inputFileName = argv[2];
+    std::string outputFileName = argv[4];
+    
+    if(!isNumber(argv[6]) || !isNumber(argv[8]) || std::stoi(argv[6]) < 1 || std::stoi(argv[8]) < 100)
+    {
+        std::cerr << "Number of generations or number of individuals constains invalid data.\n";
+        return 1;
+    }
+    int generations = std::stoi(argv[6]);
+    int populationSize = std::stoi(argv[8]);
 
-    // Initializing population
-    std::vector<Chromosome> population = initializePopulation(populationSize, numCities);
+    std::map<std::pair<std::string, std::string>, int> distanceMatrix = readInputFile(inputFileName);
+
+    // Vector containing names of cities
+    std::vector<std::string> cityNames = readCityNames(distanceMatrix); 
+
+    int numCities = cityNames.size();
+
+    // Initialization of population
+    std::vector<Chromosome> population = initializePopulation(distanceMatrix, populationSize, numCities, cityNames); 
+    // Opening file for output in the main loop
+    std::ofstream outputFile(outputFileName); 
 
     // Main loop
-    for(int generation = 0; generation < generations; generation++){
-        // Calcute fitness
-        for(Chromosome& chromosome : population){ // Loop iterates for every chromosome in the population
-            if(chromosome.fitness == 0){
-                chromosome.fitness = calculateDistance(chromosome.path, distMatrix);
+    for(int generation = 0; generation < generations; generation++) 
+    {
+        // Calculate fitness
+        for(Chromosome& chromosome : population) 
+        {
+            if(chromosome.fitness == 0)
+            {
+                chromosome.fitness = calculateDistance(distanceMatrix, chromosome.path);
             }
         }
 
-        // Sort population based on fitness
-        for(int i = 0; i < populationSize; i++){ // There's propably a better way to do it
-            for(int j = i; j < populationSize; j++){
-                if(population[i].fitness > population[j].fitness){
-                    std::swap(population[i], population[j]);
+        // Sorting loop
+        for(int i = 0; i < populationSize - 1; i++) 
+        {
+            int min = population[i].fitness;
+            int temp = i;
+            
+            for(int j = i + 1; j < populationSize; j++)
+            {
+                if(population[j].fitness < min)
+                {
+                    min = population[j].fitness;
+                    temp = j;
                 }
             }
+
+            std::swap(population[i], population[temp]);
         }
 
-        // Display best fitness
-        std::cout<< "Generation = " << generation + 1<< "   Best path length = " <<population[0].fitness << std::endl;
+        // Outputting best solution in the generation
+        outputFile << "\nGeneration " << generation + 1 << ", length " << population[0].fitness << "\n"; 
+        for(const std::string& cityName : population[0].path)
+        {
+            outputFile << cityName << " ";
+        }
 
-        // Select top 10% (elite) of population to breed
-        int eliteSize = (populationSize > 0) ? populationSize / 10 : 1; // For this to work population size has to greater than 10, TODO find a fix
-        std::vector<Chromosome> elite(population.begin(), population.begin() + eliteSize);
+        // Picking top 10% of population for breeding
+        int eliteSize = populationSize / 10;
+        std::vector<Chromosome> elite(population.begin(), population.begin() + eliteSize); 
 
-        // Breed and mutate offsprings
+        // Breeding offspring from elite
         std::vector<Chromosome> offspring;
-        for(int i = 0; i < populationSize - populationSize/10; i++){
-            int parent1 = std::rand() % eliteSize;
-            int parent2 = std::rand() % eliteSize;
-            Chromosome child = crossover(elite[parent1], elite[parent2]);
-            if(std::rand() % 100 < 10){ //Implementing 10% chance to mutate child's path
-                mutate(child);
-            }
+        for(int i = 0; i < populationSize - eliteSize; i++)
+        {
+            int parent1 = get_random_in_range(0, eliteSize - 1);
+            int parent2 = get_random_in_range(0, eliteSize - 1);
+            
+            Chromosome child = crossover(distanceMatrix, elite[parent1], elite[parent2]);
             offspring.push_back(child);
         }
-        // Combine elite and offspring to create next generation
-        population = elite;
-        population.insert(population.end(), offspring.begin(), offspring.end());
+
+        // Combining elite and offspring into a new population
+        population = elite; 
+        population.insert(population.end(), offspring.begin(), offspring.end()); 
     }
 
-    // Reading name of cities from the map
-    std::vector<std::string> cityNames = readCityNames("map.txt");
-
-    //Display best solution after all generations
-    for (int i = 0; i < numCities; i++) {
-        std::cout << cityNames[population[0].path[i]] << ", ";
-    }
-
-    std::cout<< std::endl;
-    std::cout<< "Best distance = " << population[0].fitness <<std::endl;
-    
+    outputFile.close();
     return 0;
 }

@@ -1,0 +1,20 @@
+[
+{
+  "directory": "F:/VSCode/Final_Project/build",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\main.cpp.obj -c F:\\VSCode\\Final_Project\\main.cpp",
+  "file": "F:/VSCode/Final_Project/main.cpp",
+  "output": "CMakeFiles/project.dir/main.cpp.obj"
+},
+{
+  "directory": "F:/VSCode/Final_Project/build",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\utils.cpp.obj -c F:\\VSCode\\Final_Project\\utils.cpp",
+  "file": "F:/VSCode/Final_Project/utils.cpp",
+  "output": "CMakeFiles/project.dir/utils.cpp.obj"
+},
+{
+  "directory": "F:/VSCode/Final_Project/build",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\geneticAlgorithm.cpp.obj -c F:\\VSCode\\Final_Project\\geneticAlgorithm.cpp",
+  "file": "F:/VSCode/Final_Project/geneticAlgorithm.cpp",
+  "output": "CMakeFiles/project.dir/geneticAlgorithm.cpp.obj"
+}
+]

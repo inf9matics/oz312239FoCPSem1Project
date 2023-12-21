@@ -3,20 +3,14 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <map>
-#include <utility>
 #include <chrono>
 #include <random>
 #include <algorithm>
 
-// Structure representing a chromosome (a potential solution)
-struct Chromosome
-{
-    std::vector<std::string> path;
-    int fitness = 0;
-};
+#include "storages.h"
 
 int get_random_in_range(int from, int to);
-std::vector<std::string> listAvailableCities(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const std::vector<std::string>& cityNames, const std::vector<std::string>& path);
-std::vector<Chromosome> initializePopulation(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const int& populationSize, const int& numCities, const std::vector<std::string>& cityNames);
-Chromosome crossover(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const Chromosome& parent1, const Chromosome& parent2);
+void listAvailableCities(const std::vector<std::string>& path1, const std::vector<std::string>& path2, std::vector<std::string>& availableCities);
+bool pathBack(const std::vector<std::string>& path);
+std::vector<Chromosome> initializePopulation(int populationSize, int numCities);
+Chromosome crossover(const Chromosome& parent1, const Chromosome& parent2);

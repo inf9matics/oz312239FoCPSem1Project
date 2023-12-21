@@ -5,19 +5,21 @@
 #include <vector>
 #include <cmath>
 #include <fstream>
+
 #include "utils.h"
 #include "geneticAlgorithm.h"
+#include "storages.h"
 
-int main(int argc, char *argv[])
+int main(/*int argc, char *argv[]*/)
 {
     // Temporary solution for debugging
-    /*std::string inputFileName = "input.txt"; 
+    std::string inputFileName = "input.txt"; 
     std::string outputFileName = "output.txt";
-    int generations = 200;
-    int populationSize = 50;*/
+    int generations = 30;
+    int populationSize = 1000;
 
     // Checks for proper input values
-    if(argc < 9) 
+    /*if(argc < 9) 
     {
         std::cerr << "Proper use of the program:\n"
                   << "project.exe -i <input file name> -o <output file name> -g <number of generations> -n <number of individuals in a generation(at least 100)>\n";
@@ -33,17 +35,13 @@ int main(int argc, char *argv[])
         return 1;
     }
     int generations = std::stoi(argv[6]);
-    int populationSize = std::stoi(argv[8]);
+    int populationSize = std::stoi(argv[8]);*/
 
-    std::map<std::pair<std::string, std::string>, int> distanceMatrix = readInputFile(inputFileName);
-
-    // Vector containing names of cities
-    std::vector<std::string> cityNames = readCityNames(distanceMatrix); 
-
+    distanceMatrix = readInputFile(inputFileName);
     int numCities = cityNames.size();
 
     // Initialization of population
-    std::vector<Chromosome> population = initializePopulation(distanceMatrix, populationSize, numCities, cityNames); 
+    std::vector<Chromosome> population = initializePopulation(populationSize, numCities); 
     // Opening file for output in the main loop
     std::ofstream outputFile(outputFileName); 
 
@@ -55,7 +53,7 @@ int main(int argc, char *argv[])
         {
             if(chromosome.fitness == 0)
             {
-                chromosome.fitness = calculateDistance(distanceMatrix, chromosome.path);
+                chromosome.fitness = calculateDistance(chromosome.path);
             }
         }
 
@@ -95,7 +93,7 @@ int main(int argc, char *argv[])
             int parent1 = get_random_in_range(0, eliteSize - 1);
             int parent2 = get_random_in_range(0, eliteSize - 1);
             
-            Chromosome child = crossover(distanceMatrix, elite[parent1], elite[parent2]);
+            Chromosome child = crossover(elite[parent1], elite[parent2]);
             offspring.push_back(child);
         }
 

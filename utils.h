@@ -3,13 +3,14 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <functional>
-#include <map>
 #include <vector>
 #include <sstream>
-#include<cctype>
+#include <cctype>
+#include <algorithm>
+#include <iterator>
+
+#include "storages.h"
 
 bool isNumber(const std::string& s);
-std::map<std::pair<std::string, std::string>, int> readInputFile (const std::string& inputFileName);
-std::vector<std::string> readCityNames(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix);
-int calculateDistance(const std::map<std::pair<std::string, std::string>, int>& distanceMatrix, const std::vector<std::string>& path);
+std::vector<std::vector<int>> readInputFile(const std::string& inputFileName);
+int calculateDistance(const std::vector<std::string>& path);
