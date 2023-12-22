@@ -37,11 +37,10 @@ int main(/*int argc, char *argv[]*/)
     int generations = std::stoi(argv[6]);
     int populationSize = std::stoi(argv[8]);*/
 
-    distanceMatrix = readInputFile(inputFileName);
-    int numCities = cityNames.size();
+    std::vector<std::string> cityNames = readInputFile(inputFileName, distanceMatrix, cities);
 
     // Initialization of population
-    std::vector<Chromosome> population = initializePopulation(populationSize, numCities); 
+    std::vector<Chromosome> population = initializePopulation(populationSize); 
     // Opening file for output in the main loop
     std::ofstream outputFile(outputFileName); 
 
@@ -53,7 +52,7 @@ int main(/*int argc, char *argv[]*/)
         {
             if(chromosome.fitness == 0)
             {
-                chromosome.fitness = calculateDistance(chromosome.path);
+                calculateDistance(chromosome);
             }
         }
 
@@ -77,9 +76,9 @@ int main(/*int argc, char *argv[]*/)
 
         // Outputting best solution in the generation
         outputFile << "\nGeneration " << generation + 1 << ", length " << population[0].fitness << "\n"; 
-        for(const std::string& cityName : population[0].path)
+        for(const int& city : population[0].path)
         {
-            outputFile << cityName << " ";
+            outputFile << cityNames[city] << " ";
         }
 
         // Picking top 10% of population for breeding

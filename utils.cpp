@@ -16,7 +16,7 @@ bool isNumber(const std::string& s)
     return true;
 }
 
-std::vector<std::vector<int>> readInputFile(const std::string& inputFileName)
+std::vector<std::string> readInputFile(const std::string& inputFileName, std::vector<std::vector<int>>& distanceMatrix, std::vector<int>& cities)
 {
     std::ifstream inputFile(inputFileName);
 
@@ -25,6 +25,7 @@ std::vector<std::vector<int>> readInputFile(const std::string& inputFileName)
         throw std::runtime_error("There is an issue with your input file.");
     }
 
+    std::vector<std::string> cityNames;
     std::string line;
 
     if(getline(inputFile, line))
@@ -40,10 +41,12 @@ std::vector<std::vector<int>> readInputFile(const std::string& inputFileName)
 
     int numCities = cityNames.size();
 
-    std::vector<std::vector<int>> distanceMatrix(numCities, std::vector<int>(numCities, 0));
+    distanceMatrix.resize(numCities, std::vector<int>(numCities, 0));
 
     for(int i = 0; i < numCities; i++)
     {
+        cities.push_back(i);
+
         for(int j = 0; j < numCities; j++)
         {
             inputFile >> distanceMatrix[i][j];
@@ -52,25 +55,13 @@ std::vector<std::vector<int>> readInputFile(const std::string& inputFileName)
 
     inputFile.close();
 
-    return distanceMatrix;    
+    return cityNames;    
 }
 
-int calculateDistance(const std::vector<std::string>& path)
+void calculateDistance(Chromosome& chromosome)
 {
-    int distance = 0;
-    int numCities = cityNames.size();
-
-    for(int i = 0; i < numCities - 1; i++)
+    for(int i = 0; i < cities.size(); i++)
     {
-        auto ptrCity1 = std::find(cityNames.begin(), cityNames.end(), path[i]);
-        int city1 = std::distance(cityNames.begin(), ptrCity1);
-        auto ptrCity2 = std::find(cityNames.begin(), cityNames.end(), path[i + 1]);
-        int city2 = std::distance(cityNames.begin(), ptrCity2);
-        
-        distance += distanceMatrix[city1][city2];
-    }
-
-    return distance;  
+        chromosome.fitness += distanceMatrix[chromosome.path[i]][chromosome.path[i+1]];
+    }  
 }
-
-

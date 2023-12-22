@@ -12,5 +12,5 @@
 #include "storages.h"
 
 bool isNumber(const std::string& s);
-std::vector<std::vector<int>> readInputFile(const std::string& inputFileName);
-int calculateDistance(const std::vector<std::string>& path);
+std::vector<std::string> readInputFile(const std::string& inputFileName, std::vector<std::vector<int>>& distanceMatrix, std::vector<int>& cities);
+void calculateDistance(Chromosome& chromosome);
