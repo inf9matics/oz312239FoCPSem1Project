@@ -1,9 +1,5 @@
 #include "utils.h"
-#include "storages.h"
 
-/// @brief Checks if a string is a numeric value.
-/// @param s The input string to be checked.
-/// @return True if the string is a numeric value, false otherwise.
 bool isNumber(const std::string& s)
 {
     for (char const &ch : s) 
@@ -58,10 +54,37 @@ std::vector<std::string> readInputFile(const std::string& inputFileName, std::ve
     return cityNames;    
 }
 
-void calculateDistance(Chromosome& chromosome)
+void outputBestSolution(std::ofstream& outputFile, const int& generation, const Chromosome& chromosome, const std::vector<std::string>& cityNames)
 {
-    for(int i = 0; i < cities.size(); i++)
+    outputFile << "\nGeneration " << generation + 1 << ", length " << chromosome.fitness << "\n"; 
+    for(const int& city : chromosome.path)
+    {
+        outputFile << cityNames[city] << " ";
+    }
+}
+
+void calculateDistance(const std::vector<std::vector<int>>& distanceMatrix, Chromosome& chromosome)
+{
+    for(int i = 0; i < chromosome.path.size() - 1; i++)
     {
         chromosome.fitness += distanceMatrix[chromosome.path[i]][chromosome.path[i+1]];
     }  
+}
+
+bool compareChromosomes(const Chromosome& a, const Chromosome& b)
+{
+    return a.fitness < b.fitness;
+}
+
+void sort(const std::vector<std::vector<int>>& distanceMatrix, std::vector<Chromosome>& population)
+{
+    for(Chromosome& chromosome : population) 
+    {
+        if(chromosome.fitness == 0)
+        {
+            calculateDistance(distanceMatrix, chromosome);
+        }
+    }
+
+    std::sort(population.begin(), population.end(), compareChromosomes);
 }

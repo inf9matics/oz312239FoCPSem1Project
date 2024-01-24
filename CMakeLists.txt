@@ -1,1 +1,1 @@
-add_executable(project main.cpp utils.cpp geneticAlgorithm.cpp storages.cpp)
+add_executable(project main.cpp utils.cpp geneticAlgorithm.cpp)

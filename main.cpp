@@ -1,14 +1,10 @@
 #include <iostream>
 #include <string>
-#include <map>
-#include <utility>
 #include <vector>
-#include <cmath>
 #include <fstream>
 
 #include "utils.h"
 #include "geneticAlgorithm.h"
-#include "storages.h"
 
 int main(/*int argc, char *argv[]*/)
 {
@@ -16,7 +12,7 @@ int main(/*int argc, char *argv[]*/)
     std::string inputFileName = "input.txt"; 
     std::string outputFileName = "output.txt";
     int generations = 30;
-    int populationSize = 1000;
+    int populationSize = 500;
 
     // Checks for proper input values
     /*if(argc < 9) 
@@ -37,68 +33,36 @@ int main(/*int argc, char *argv[]*/)
     int generations = std::stoi(argv[6]);
     int populationSize = std::stoi(argv[8]);*/
 
-    std::vector<std::string> cityNames = readInputFile(inputFileName, distanceMatrix, cities);
+    // Reading data from a file
+    std::vector<int> cities;
+    std::vector<std::string> cityNames;
+    std::vector<std::vector<int>> distanceMatrix;
+    try
+    {
+        cityNames = readInputFile(inputFileName, distanceMatrix, cities);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return 1;
+    }
 
     // Initialization of population
-    std::vector<Chromosome> population = initializePopulation(populationSize); 
-    // Opening file for output in the main loop
+    std::vector<Chromosome> population = initializePopulation(distanceMatrix, cities, populationSize);
+
     std::ofstream outputFile(outputFileName); 
 
     // Main loop
     for(int generation = 0; generation < generations; generation++) 
     {
-        // Calculate fitness
-        for(Chromosome& chromosome : population) 
-        {
-            if(chromosome.fitness == 0)
-            {
-                calculateDistance(chromosome);
-            }
-        }
+        // Calculate fitness, and sort
+        sort(distanceMatrix, population);
 
-        // Sorting loop
-        for(int i = 0; i < populationSize - 1; i++) 
-        {
-            int min = population[i].fitness;
-            int temp = i;
-            
-            for(int j = i + 1; j < populationSize; j++)
-            {
-                if(population[j].fitness < min)
-                {
-                    min = population[j].fitness;
-                    temp = j;
-                }
-            }
+        // Outputting best solution for each genereation into a file
+        outputBestSolution(outputFile, generation, population[0], cityNames);
 
-            std::swap(population[i], population[temp]);
-        }
-
-        // Outputting best solution in the generation
-        outputFile << "\nGeneration " << generation + 1 << ", length " << population[0].fitness << "\n"; 
-        for(const int& city : population[0].path)
-        {
-            outputFile << cityNames[city] << " ";
-        }
-
-        // Picking top 10% of population for breeding
-        int eliteSize = populationSize / 10;
-        std::vector<Chromosome> elite(population.begin(), population.begin() + eliteSize); 
-
-        // Breeding offspring from elite
-        std::vector<Chromosome> offspring;
-        for(int i = 0; i < populationSize - eliteSize; i++)
-        {
-            int parent1 = get_random_in_range(0, eliteSize - 1);
-            int parent2 = get_random_in_range(0, eliteSize - 1);
-            
-            Chromosome child = crossover(elite[parent1], elite[parent2]);
-            offspring.push_back(child);
-        }
-
-        // Combining elite and offspring into a new population
-        population = elite; 
-        population.insert(population.end(), offspring.begin(), offspring.end()); 
+        // Generating next generation based on top 10% of the previous one
+        breedNextPopulation(distanceMatrix, population);
     }
 
     outputFile.close();

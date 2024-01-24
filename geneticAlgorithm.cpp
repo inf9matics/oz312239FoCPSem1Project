@@ -7,94 +7,116 @@ int get_random_in_range(int from, int to)
     return distribution(generator);
 }
 
-void listAvailableCities(const std::vector<int>& path1, const std::vector<int>& path2, std::vector<int>& availableCities)
+bool checkConnection(const std::vector<std::vector<int>>& distanceMatrix, const int& city1, const int& city2)
 {
-    int city = path1.back();
+    return distanceMatrix[city1][city2] > 0; 
+}
 
-    for (const int& candidateCity : path2)
+bool checkVisitedCities(const std::vector<std::vector<int>>& distanceMatrix, const std::vector<int>& path, const int& city)
+{
+    return std::find(path.begin(), path.end(), city) == path.end();
+}
+
+bool checkPath(const std::vector<std::vector<int>>& distanceMatrix, const std::vector<int>& path)
+{
+    std::vector<int> visitedCities;
+    int numCities = distanceMatrix.size();
+
+    for(int i = 0; i < numCities - 1; i++)
     {
-        if (distanceMatrix[city][candidateCity] > 0 && std::find(path1.begin(), path1.end(), candidateCity) == path1.end())
+        visitedCities.push_back(path[i]);
+
+        if(!checkConnection(distanceMatrix, path[i], path[i+1]) || !checkVisitedCities(distanceMatrix, visitedCities, path[i+1]))
         {
-            availableCities.push_back(candidateCity);
+            return false;
         }
     }
+
+    if(!checkConnection(distanceMatrix, path.back(), path.front()))
+    {
+        return false;
+    }
+    
+    return true;
 }
 
-bool pathBack(const std::vector<int>& path)
-{
-    return distanceMatrix[path.front()][path.back()] > 0;
-}
-
-std::vector<Chromosome> initializePopulation(int populationSize)
+std::vector<Chromosome> initializePopulation(const std::vector<std::vector<int>>& distanceMatrix, const std::vector<int>& cities, const int& populationSize)
 {
     std::vector<Chromosome> population(populationSize);
 
     for(int i = 0; i < populationSize; i++) // Function that randomly fills chromosome's paths
     {   
-        int randomCity = cities[get_random_in_range(0, cities.back())];
-        population[i].path.push_back(randomCity); 
-        
-        while(population[i].path.size() != cities.size())
-        {
-            std::vector<int> availableCities;
+        population[i].path = cities; 
 
-            listAvailableCities(population[i].path, cities, availableCities);
+        std::shuffle(population[i].path.begin(), population[i].path.end(), std::default_random_engine(std::random_device()()));
 
-            if(availableCities.empty()) //In case there would be no available cities, the whole path is cleared to be filled once again
-            {
-                population[i].path.clear();
-                population[i].path.push_back(randomCity);
-            }
-            else
-            {
-                population[i].path.push_back(availableCities[get_random_in_range(0, availableCities.size() - 1)]);
-            }            
-        }
-
-        if(!pathBack(population[i].path))
+        if(!checkPath(distanceMatrix, population[i].path))
         {
             population[i].path.clear();
             i--;
         }
         else
         {
-            population[i].path.push_back(randomCity);
+            population[i].path.push_back(population[i].path.front());
         }
     }
 
     return population;
 }
 
-Chromosome crossover(const Chromosome& parent1, const Chromosome& parent2)
+Chromosome crossover(const std::vector<std::vector<int>>& distanceMatrix, const std::vector<int>& path1, const std::vector<int>& path2)
 {
-    int numCities = cities.size();
+    int numCities = path1.size() - 1;
     int crossoverPoint = get_random_in_range(1, numCities - 1); //Randomly choosing point in which parents' paths get mixed
     
     Chromosome child;
 
     // Copying first parent's path up to the crossover point
-    for(int i = 0; i < crossoverPoint; i++)
-    {
-        child.path.push_back(parent1.path[i]);
-    }
+    child.path.insert(child.path.begin(), path1.begin(), path1.begin() + crossoverPoint);
     
     // Copying second parent's path, leaving last city
-    for(int i = 0; i < numCities - crossoverPoint; i++)
+    while(child.path.size() != numCities)
     {
-        std::vector<int> availableCities;
-        listAvailableCities(child.path, parent2.path, availableCities);
-        child.path.push_back(availableCities[0]);
+        for(const int& city : path2)
+        {
+            if(checkConnection(distanceMatrix, child.path.back(), city) && checkVisitedCities(distanceMatrix, child.path, city))
+            {
+                child.path.push_back(city);
+            }
+        }
     }
 
-    if(!pathBack(child.path))
+    if(!checkConnection(distanceMatrix, child.path.back(), child.path.front()))
     {
-        child = parent1;
+        child.path = path1;
     }
     else
     {
-        child.path.push_back(parent1.path[0]);
+        child.path.push_back(child.path.front());
     }
+
     
     child.fitness = 0;
     return child;
+}
+
+void breedNextPopulation(const std::vector<std::vector<int>>& distanceMatrix, std::vector<Chromosome>& population)
+{
+    // Picking top 10% of population for breeding
+    int eliteSize = population.size() / 10;
+    std::vector<Chromosome> elite(population.begin(), population.begin() + eliteSize); 
+
+    // Breeding offspring from elite
+    std::vector<Chromosome> offspring;
+    for(int i = 0; i < population.size() - eliteSize; i++)
+    {
+        int parent1 = get_random_in_range(0, eliteSize - 1);
+        int parent2 = get_random_in_range(0, eliteSize - 1);
+            
+        offspring.push_back(crossover(distanceMatrix, elite[parent1].path, elite[parent2].path));
+    }
+
+    // Combining elite and offspring into a new population
+    population = elite; 
+    population.insert(population.end(), offspring.begin(), offspring.end()); 
 }
