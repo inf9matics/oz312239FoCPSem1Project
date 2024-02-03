@@ -1,0 +1,3 @@
+F:\Cmake\bin\cmake.exe -E rm -f CMakeFiles\Electrification.dir/objects.a
+F:\MSYS2\ucrt64\bin\ar.exe qc CMakeFiles\Electrification.dir/objects.a @CMakeFiles\Electrification.dir\objects1.rsp
+F:\MSYS2\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\Electrification.dir/objects.a -Wl,--no-whole-archive -o Electrification.exe -Wl,--out-implib,libElectrification.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Electrification.dir\linkLibs.rsp

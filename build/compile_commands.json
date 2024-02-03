@@ -1,20 +1,32 @@
 [
 {
-  "directory": "F:/VSCode/Final_Project/build",
-  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\main.cpp.obj -c F:\\VSCode\\Final_Project\\main.cpp",
-  "file": "F:/VSCode/Final_Project/main.cpp",
-  "output": "CMakeFiles/project.dir/main.cpp.obj"
+  "directory": "F:/VSCode/Final_Project/build/TSP_using_GA",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\TSP_using_GA.dir\\main.cpp.obj -c F:\\VSCode\\Final_Project\\TSP_using_GA\\main.cpp",
+  "file": "F:/VSCode/Final_Project/TSP_using_GA/main.cpp",
+  "output": "TSP_using_GA/CMakeFiles/TSP_using_GA.dir/main.cpp.obj"
 },
 {
-  "directory": "F:/VSCode/Final_Project/build",
-  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\utils.cpp.obj -c F:\\VSCode\\Final_Project\\utils.cpp",
-  "file": "F:/VSCode/Final_Project/utils.cpp",
-  "output": "CMakeFiles/project.dir/utils.cpp.obj"
+  "directory": "F:/VSCode/Final_Project/build/TSP_using_GA",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\TSP_using_GA.dir\\utils.cpp.obj -c F:\\VSCode\\Final_Project\\TSP_using_GA\\utils.cpp",
+  "file": "F:/VSCode/Final_Project/TSP_using_GA/utils.cpp",
+  "output": "TSP_using_GA/CMakeFiles/TSP_using_GA.dir/utils.cpp.obj"
 },
 {
-  "directory": "F:/VSCode/Final_Project/build",
-  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\project.dir\\geneticAlgorithm.cpp.obj -c F:\\VSCode\\Final_Project\\geneticAlgorithm.cpp",
-  "file": "F:/VSCode/Final_Project/geneticAlgorithm.cpp",
-  "output": "CMakeFiles/project.dir/geneticAlgorithm.cpp.obj"
+  "directory": "F:/VSCode/Final_Project/build/TSP_using_GA",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\TSP_using_GA.dir\\geneticAlgorithm.cpp.obj -c F:\\VSCode\\Final_Project\\TSP_using_GA\\geneticAlgorithm.cpp",
+  "file": "F:/VSCode/Final_Project/TSP_using_GA/geneticAlgorithm.cpp",
+  "output": "TSP_using_GA/CMakeFiles/TSP_using_GA.dir/geneticAlgorithm.cpp.obj"
+},
+{
+  "directory": "F:/VSCode/Final_Project/build/Electrification",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\Electrification.dir\\main.cpp.obj -c F:\\VSCode\\Final_Project\\Electrification\\main.cpp",
+  "file": "F:/VSCode/Final_Project/Electrification/main.cpp",
+  "output": "Electrification/CMakeFiles/Electrification.dir/main.cpp.obj"
+},
+{
+  "directory": "F:/VSCode/Final_Project/build/Electrification",
+  "command": "F:\\MSYS2\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\Electrification.dir\\utilities.cpp.obj -c F:\\VSCode\\Final_Project\\Electrification\\utilities.cpp",
+  "file": "F:/VSCode/Final_Project/Electrification/utilities.cpp",
+  "output": "Electrification/CMakeFiles/Electrification.dir/utilities.cpp.obj"
 }
 ]

@@ -1,0 +1,61 @@
+
+Generation 1, length 31
+Zabrze Katowice Czestochowa Gliwice Zabrze 
+Generation 2, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 3, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 4, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 5, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 6, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 7, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 8, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 9, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 10, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 11, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 12, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 13, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 14, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 15, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 16, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 17, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 18, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 19, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 20, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 21, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 22, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 23, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 24, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 25, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 26, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 27, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 28, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 29, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 
+Generation 30, length 23
+Gliwice Czestochowa Katowice Zabrze Gliwice 

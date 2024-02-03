@@ -1,0 +1,1 @@
+add_executable(TSP_using_GA main.cpp utils.cpp geneticAlgorithm.cpp)

@@ -1,0 +1,29 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - test1
+      - master
+
+jobs:
+  test:
+    runs-on: windows-latest  # Use appropriate runner for your project
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1
+      
+    - name: Build project
+      run: |
+        cd project
+        msbuild /p:Configuration=Debug /m /p:Platform=x64
+        
+    - name: Run Tests
+      run: |
+        project\tests_project\run_tests.bat
+        
+    
