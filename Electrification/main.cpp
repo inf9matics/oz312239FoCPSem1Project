@@ -3,10 +3,45 @@
 
 #include "utilities.h"
 
-int main()
+int main(int argc, char* argv[])
 {
-    std::string inputFileName = "F:\\VSCode\\Final_Project\\Electrification\\input.txt";
-    std::string outputFileName = "F:\\VSCode\\Final_Project\\Electrification\\output.txt";
+    std::string inputFileName;
+    std::string outputFileName;
+
+    if(argc < 5) 
+    {
+        std::cerr << "Proper use of the program:\n"
+                  << "? -i <input file name> -o <output file name>\n";
+        return 1;
+    }
+
+    for (int i = 1; i < argc; i++) 
+    {
+        std::string arg = argv[i];
+        if (arg == "-i") 
+        {
+            if (i + 1 < argc) 
+            { 
+                inputFileName = argv[i++]; 
+            } 
+            else 
+            { 
+                std::cerr << "-i option requires one argument.\n";
+                return 1;
+            }
+        } 
+        else if (arg == "-o") 
+        {
+            if (i + 1 < argc) 
+            {
+                outputFileName = argv[i++];
+            } else 
+            {
+                std::cerr << "-o option requires one argument.\n";
+                return 1;
+            }
+        }
+    }
 
     OrderedSet cityNames;
     std::vector<Edge> edges; 
