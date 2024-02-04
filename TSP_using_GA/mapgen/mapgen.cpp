@@ -14,7 +14,7 @@ int main() // Code that generates random maps for inputs
 {
     std::ofstream outputFile("funnylittlemap.txt");    
 
-    int x = 10; // Map size
+    int x = 300; // Map size
     int map[x][x];
 
     for(int i = 0; i < x; i++)

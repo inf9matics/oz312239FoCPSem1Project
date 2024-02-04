@@ -7,7 +7,7 @@
 #include "utils.h"
 #include "geneticAlgorithm.h"
 
-int main(int argc, char *argv[]) // .\build\project\project -i .\\TSP_using_GA\\input.txt -o .\\TSP_using_GA\\output.txt -g 30 -n 1000
+int main(int argc, char *argv[]) // .\build\TSP_using_GA\TSP_using_GA.exe -i .\\TSP_using_GA\\input.txt -o .\\TSP_using_GA\\output.txt -g 30 -n 1000
 {
     std::string inputFileName;
     std::string outputFileName;
