@@ -1,20 +1,17 @@
 #include <iostream>
 #include <string>
-
 #include "utilities.h"
 
-int main(int argc, char* argv[]) // https://tug.org/texlive/
+int main(int argc, char* argv[])
 {
     std::string inputFileName;
     std::string outputFileName;
-
     if(argc < 5) 
     {
         std::cerr << "Proper use of the program:\n"
-                  << "? -i <input file name> -o <output file name>\n";
+                  << "electrification.exe -i <input file name> -o <output file name>\n";
         return 1;
     }
-
     for (int i = 1; i < argc; i++) 
     {
         std::string arg = argv[i];
@@ -42,10 +39,8 @@ int main(int argc, char* argv[]) // https://tug.org/texlive/
             }
         }
     }
-
     OrderedSet cityNames;
-    std::vector<Edge> edges; 
-
+    std::vector<Edge> edges;
     try
     {
         readFromInput(inputFileName, cityNames, edges);
@@ -57,6 +52,5 @@ int main(int argc, char* argv[]) // https://tug.org/texlive/
         std::cerr << e.what() << '\n';
         return 1;
     }
-    
     return 0;
 }
