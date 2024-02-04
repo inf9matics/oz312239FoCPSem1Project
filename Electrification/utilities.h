@@ -1,3 +1,6 @@
+/**
+ * @file utilities.h
+ */
 #pragma once
 #include <fstream>
 #include <string>
