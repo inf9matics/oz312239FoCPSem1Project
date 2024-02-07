@@ -1,3 +1,0 @@
-F:\Cmake\bin\cmake.exe -E rm -f CMakeFiles\TSP_using_GA.dir/objects.a
-F:\MSYS2\ucrt64\bin\ar.exe qc CMakeFiles\TSP_using_GA.dir/objects.a @CMakeFiles\TSP_using_GA.dir\objects1.rsp
-F:\MSYS2\ucrt64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\TSP_using_GA.dir/objects.a -Wl,--no-whole-archive -o TSP_using_GA.exe -Wl,--out-implib,libTSP_using_GA.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\TSP_using_GA.dir\linkLibs.rsp

@@ -1,1 +1,0 @@
-add_executable(Electrification main.cpp utilities.cpp utilities.h)

@@ -9,4 +9,3 @@ set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
 include(CPack)
 
 add_subdirectory(TSP_using_GA)
-add_subdirectory(Electrification)
